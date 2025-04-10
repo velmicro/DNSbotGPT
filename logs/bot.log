@@ -1,0 +1,519 @@
+2025-03-27 14:25:50,090 - INFO - Загрузка переменных окружения из .env...
+2025-03-27 14:25:50,092 - INFO - Переменные окружения успешно загружены
+2025-03-27 14:25:50,291 - INFO - Loading faiss.
+2025-03-27 14:25:50,393 - INFO - Successfully loaded faiss.
+2025-03-27 14:25:58,591 - INFO - Инициализация модели SentenceTransformer...
+2025-03-27 14:25:58,591 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-03-27 14:26:01,695 - INFO - Use pytorch device_name: cpu
+2025-03-27 14:26:01,700 - INFO - Модель SentenceTransformer успешно загружена
+2025-03-27 14:26:02,170 - INFO - Инициализация клиента Groq...
+2025-03-27 14:26:02,653 - INFO - Клиент Groq успешно инициализирован
+2025-03-27 14:26:02,667 - INFO - Инициализация бота...
+2025-03-27 14:26:03,348 - INFO - Инициализация диспетчера...
+2025-03-27 14:26:03,349 - INFO - Регистрация команд...
+2025-03-27 14:26:03,350 - INFO - Начало регистрации команд...
+2025-03-27 14:26:03,350 - INFO - Команды успешно зарегистрированы
+2025-03-27 14:26:03,351 - INFO - Регистрация обработчиков...
+2025-03-27 14:26:03,351 - INFO - Начало регистрации обработчиков...
+2025-03-27 14:26:03,352 - INFO - Обработчики успешно зарегистрированы
+2025-03-27 14:26:03,353 - INFO - Бот запущен
+2025-03-27 14:26:03,353 - INFO - Файлы кеша отсутствуют
+2025-03-27 14:26:03,354 - INFO - Подключение к Google Sheets...
+2025-03-27 14:26:03,354 - ERROR - Ошибка подключения к Google Sheets: [Errno 2] No such file or directory: 'path/to/credentials.json'
+2025-03-27 14:26:03,355 - ERROR - Не удалось загрузить базу знаний и кеш отсутствует
+2025-03-27 14:26:03,355 - WARNING - База знаний не загружена или пуста после инициализации
+2025-03-27 14:26:03,356 - INFO - Start polling
+2025-03-27 14:26:03,682 - INFO - Run polling for bot @vel26testbot id=7582800146 - 'testbot'
+2025-03-27 14:26:21,305 - INFO - Получено сообщение от 640063939: Привет
+2025-03-27 14:26:22,726 - INFO - Update id=793837912 is not handled. Duration 1421 ms by bot id=7582800146
+2025-03-27 14:26:22,727 - ERROR - Cause exception while process update id=793837912 by bot id=7582800146
+ValidationError: 1 validation error for ReplyKeyboardMarkup
+keyboard
+  Field required [type=missing, input_value={'resize_keyboard': True}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\AIBot\Handlers.py", line 103, in handle_message
+    main_keyboard = get_main_keyboard()
+                    ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\AIBot\Keyboards.py", line 7, in get_main_keyboard
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pydantic\main.py", line 212, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for ReplyKeyboardMarkup
+keyboard
+  Field required [type=missing, input_value={'resize_keyboard': True}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+2025-03-27 14:26:51,221 - INFO - Получена команда /start от 640063939
+2025-03-27 14:26:51,636 - INFO - Update id=793837913 is not handled. Duration 406 ms by bot id=7582800146
+2025-03-27 14:26:51,637 - ERROR - Cause exception while process update id=793837913 by bot id=7582800146
+ValidationError: 1 validation error for ReplyKeyboardMarkup
+keyboard
+  Field required [type=missing, input_value={'resize_keyboard': True}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\AIBot\Commands.py", line 80, in cmd_start
+    main_keyboard = get_main_keyboard()
+                    ^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\AIBot\Keyboards.py", line 7, in get_main_keyboard
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pydantic\main.py", line 212, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for ReplyKeyboardMarkup
+keyboard
+  Field required [type=missing, input_value={'resize_keyboard': True}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.9/v/missing
+2025-03-27 14:29:34,415 - INFO - Polling stopped
+2025-03-27 14:29:34,676 - INFO - Polling stopped for bot @vel26testbot id=7582800146 - 'testbot'
+2025-03-27 14:30:03,190 - INFO - Загрузка переменных окружения из .env...
+2025-03-27 14:30:03,192 - INFO - Переменные окружения успешно загружены
+2025-03-27 14:30:03,367 - INFO - Loading faiss.
+2025-03-27 14:30:03,472 - INFO - Successfully loaded faiss.
+2025-03-27 14:30:11,270 - INFO - Инициализация модели SentenceTransformer...
+2025-03-27 14:30:11,271 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-03-27 14:30:14,360 - INFO - Use pytorch device_name: cpu
+2025-03-27 14:30:14,364 - INFO - Модель SentenceTransformer успешно загружена
+2025-03-27 14:30:14,782 - INFO - Инициализация клиента Groq...
+2025-03-27 14:30:15,261 - INFO - Клиент Groq успешно инициализирован
+2025-03-27 14:30:15,263 - INFO - Инициализация бота...
+2025-03-27 14:30:15,770 - INFO - Инициализация диспетчера...
+2025-03-27 14:30:15,772 - INFO - Регистрация команд...
+2025-03-27 14:30:15,772 - INFO - Начало регистрации команд...
+2025-03-27 14:30:15,773 - INFO - Команды успешно зарегистрированы
+2025-03-27 14:30:15,774 - INFO - Регистрация обработчиков...
+2025-03-27 14:30:15,774 - INFO - Начало регистрации обработчиков...
+2025-03-27 14:30:15,774 - INFO - Обработчики успешно зарегистрированы
+2025-03-27 14:30:15,776 - INFO - Бот запущен
+2025-03-27 14:30:15,777 - INFO - Файлы кеша отсутствуют
+2025-03-27 14:30:15,777 - INFO - Подключение к Google Sheets...
+2025-03-27 14:30:18,920 - INFO - Успешное подключение к Google Sheets
+2025-03-27 14:30:19,949 - INFO - Загрузка данных из Google Sheets...
+2025-03-27 14:30:21,571 - INFO - Векторизация вопросов...
+2025-03-27 14:30:25,339 - INFO - Кеш успешно сохранён
+2025-03-27 14:30:25,340 - INFO - База знаний успешно загружена и кеширована
+2025-03-27 14:30:25,348 - INFO - База знаний загружена: 114 записей, 114 вопросов
+2025-03-27 14:30:25,349 - INFO - Start polling
+2025-03-27 14:30:25,658 - INFO - Run polling for bot @vel26testbot id=7582800146 - 'testbot'
+2025-03-27 14:30:39,408 - INFO - Получена команда /start от 640063939
+2025-03-27 14:30:40,059 - INFO - Update id=793837914 is handled. Duration 641 ms by bot id=7582800146
+2025-03-27 14:30:55,890 - INFO - Получено сообщение от 640063939: Привет
+2025-03-27 14:30:57,189 - INFO - Update id=793837915 is not handled. Duration 1295 ms by bot id=7582800146
+2025-03-27 14:30:57,190 - ERROR - Cause exception while process update id=793837915 by bot id=7582800146
+ValidationError: 1 validation error for EditMessageText
+reply_markup
+  Input should be a valid dictionary or instance of InlineKeyboardMarkup [type=model_type, input_value=ReplyKeyboardMarkup(keybo...er=None, selective=None), input_type=ReplyKeyboardMarkup]
+    For further information visit https://errors.pydantic.dev/2.9/v/model_type
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\AIBot\Handlers.py", line 105, in handle_message
+    await typing_message.edit_text(response, reply_markup=main_keyboard)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\types\message.py", line 3566, in edit_text
+    return EditMessageText(
+           ^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\pydantic\main.py", line 212, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for EditMessageText
+reply_markup
+  Input should be a valid dictionary or instance of InlineKeyboardMarkup [type=model_type, input_value=ReplyKeyboardMarkup(keybo...er=None, selective=None), input_type=ReplyKeyboardMarkup]
+    For further information visit https://errors.pydantic.dev/2.9/v/model_type
+2025-03-27 14:34:47,501 - INFO - Polling stopped
+2025-03-27 14:34:47,762 - INFO - Polling stopped for bot @vel26testbot id=7582800146 - 'testbot'
+2025-03-27 14:34:54,307 - INFO - Загрузка переменных окружения из .env...
+2025-03-27 14:34:54,310 - INFO - Переменные окружения успешно загружены
+2025-03-27 14:34:54,542 - INFO - Loading faiss.
+2025-03-27 14:34:54,672 - INFO - Successfully loaded faiss.
+2025-03-27 14:35:03,593 - INFO - Инициализация модели SentenceTransformer...
+2025-03-27 14:35:03,594 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-03-27 14:35:06,504 - INFO - Use pytorch device_name: cpu
+2025-03-27 14:35:06,508 - INFO - Модель SentenceTransformer успешно загружена
+2025-03-27 14:35:06,942 - INFO - Инициализация клиента Groq...
+2025-03-27 14:35:07,421 - INFO - Клиент Groq успешно инициализирован
+2025-03-27 14:35:07,424 - INFO - Инициализация бота...
+2025-03-27 14:35:07,986 - INFO - Инициализация диспетчера...
+2025-03-27 14:35:07,987 - INFO - Регистрация команд...
+2025-03-27 14:35:07,987 - INFO - Начало регистрации команд...
+2025-03-27 14:35:07,988 - INFO - Команды успешно зарегистрированы
+2025-03-27 14:35:07,989 - INFO - Регистрация обработчиков...
+2025-03-27 14:35:07,989 - INFO - Начало регистрации обработчиков...
+2025-03-27 14:35:07,990 - INFO - Обработчики успешно зарегистрированы
+2025-03-27 14:35:07,992 - INFO - Бот запущен
+2025-03-27 14:35:08,044 - INFO - Кеш успешно загружен
+2025-03-27 14:35:08,045 - INFO - Подключение к Google Sheets...
+2025-03-27 14:35:09,850 - INFO - Успешное подключение к Google Sheets
+2025-03-27 14:35:10,104 - INFO - Данные в Google Sheets не изменились, используется кеш
+2025-03-27 14:35:10,112 - INFO - База знаний загружена: 114 записей, 114 вопросов
+2025-03-27 14:35:10,112 - INFO - Start polling
+2025-03-27 14:35:10,801 - INFO - Run polling for bot @vel26testbot id=7582800146 - 'testbot'
+2025-03-27 14:35:25,384 - INFO - Получена команда /start от 640063939
+2025-03-27 14:35:25,989 - INFO - Update id=793837916 is handled. Duration 608 ms by bot id=7582800146
+2025-03-27 14:35:29,221 - INFO - Получено сообщение от 640063939: Новый диалог
+2025-03-27 14:35:30,584 - INFO - Поиск в базе знаний для запроса: новый диалог
+2025-03-27 14:35:30,678 - INFO - Ответ в базе знаний не найден, выполняется поиск в интернете: новый диалог
+2025-03-27 14:35:30,679 - INFO - Поиск в интернете: новый диалог
+2025-03-27 14:35:33,277 - WARNING - Результаты поиска пусты
+2025-03-27 14:35:33,282 - INFO - Проверка, является ли запрос ссылкой на продукт DNS: новый диалог
+2025-03-27 14:35:33,283 - INFO - Анализ запроса DNS: новый диалог
+2025-03-27 14:35:34,352 - ERROR - Ошибка анализа DNS: 401 Client Error: Unauthorized for url: https://www.dns-shop.ru/search/?q=%D0%BD%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%B4%D0%B8%D0%B0%D0%BB%D0%BE%D0%B3
+2025-03-27 14:35:34,354 - INFO - Использование AI-знаний через Groq для запроса: новый диалог
+2025-03-27 14:35:35,916 - INFO - Update id=793837917 is handled. Duration 6687 ms by bot id=7582800146
+2025-03-27 14:35:51,032 - INFO - Получено сообщение от 640063939: О боте
+2025-03-27 14:35:52,521 - INFO - Поиск в базе знаний для запроса: о боте
+2025-03-27 14:35:52,577 - INFO - Ответ в базе знаний не найден, выполняется поиск в интернете: о боте
+2025-03-27 14:35:52,578 - INFO - Поиск в интернете: о боте
+2025-03-27 14:35:54,700 - WARNING - Результаты поиска пусты
+2025-03-27 14:35:54,705 - INFO - Проверка, является ли запрос ссылкой на продукт DNS: о боте
+2025-03-27 14:35:54,706 - INFO - Анализ запроса DNS: о боте
+2025-03-27 14:35:55,566 - ERROR - Ошибка анализа DNS: 401 Client Error: Unauthorized for url: https://www.dns-shop.ru/search/?q=%D0%BE%20%D0%B1%D0%BE%D1%82%D0%B5
+2025-03-27 14:35:55,568 - INFO - Использование AI-знаний через Groq для запроса: о боте
+2025-03-27 14:35:56,923 - INFO - Update id=793837918 is handled. Duration 5891 ms by bot id=7582800146
+2025-03-27 14:36:08,020 - INFO - Получено сообщение от 640063939: Помощь
+2025-03-27 14:36:09,159 - INFO - Поиск в базе знаний для запроса: помощь
+2025-03-27 14:36:09,203 - INFO - Ответ в базе знаний не найден, выполняется поиск в интернете: помощь
+2025-03-27 14:36:09,204 - INFO - Поиск в интернете: помощь
+2025-03-27 14:36:11,631 - WARNING - Результаты поиска пусты
+2025-03-27 14:36:11,635 - INFO - Проверка, является ли запрос ссылкой на продукт DNS: помощь
+2025-03-27 14:36:11,636 - INFO - Анализ запроса DNS: помощь
+2025-03-27 14:36:12,491 - ERROR - Ошибка анализа DNS: 401 Client Error: Unauthorized for url: https://www.dns-shop.ru/search/?q=%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C
+2025-03-27 14:36:12,495 - INFO - Использование AI-знаний через Groq для запроса: помощь
+2025-03-27 14:36:13,662 - INFO - Update id=793837919 is handled. Duration 5640 ms by bot id=7582800146
+2025-03-27 14:36:30,993 - INFO - Получено сообщение от 640063939: Привет
+2025-03-27 14:36:33,135 - INFO - Update id=793837920 is handled. Duration 2141 ms by bot id=7582800146
+2025-03-27 14:39:21,325 - INFO - Polling stopped
+2025-03-27 14:39:21,588 - INFO - Polling stopped for bot @vel26testbot id=7582800146 - 'testbot'
+2025-03-27 14:40:46,555 - INFO - Загрузка переменных окружения из .env...
+2025-03-27 14:40:46,558 - INFO - Переменные окружения успешно загружены
+2025-03-27 14:40:46,717 - INFO - Loading faiss.
+2025-03-27 14:40:46,818 - INFO - Successfully loaded faiss.
+2025-03-27 14:40:54,545 - INFO - Инициализация модели SentenceTransformer...
+2025-03-27 14:40:54,546 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-03-27 14:40:57,692 - INFO - Use pytorch device_name: cpu
+2025-03-27 14:40:57,695 - INFO - Модель SentenceTransformer успешно загружена
+2025-03-27 14:40:58,129 - INFO - Инициализация клиента Groq...
+2025-03-27 14:40:58,611 - INFO - Клиент Groq успешно инициализирован
+2025-03-27 14:40:58,615 - INFO - Инициализация бота...
+2025-03-27 14:40:59,103 - INFO - Инициализация диспетчера...
+2025-03-27 14:40:59,104 - INFO - Регистрация команд...
+2025-03-27 14:40:59,105 - INFO - Начало регистрации команд...
+2025-03-27 14:40:59,105 - INFO - Команды успешно зарегистрированы
+2025-03-27 14:40:59,106 - INFO - Регистрация обработчиков...
+2025-03-27 14:40:59,107 - INFO - Начало регистрации обработчиков...
+2025-03-27 14:40:59,107 - INFO - Обработчики успешно зарегистрированы
+2025-03-27 14:40:59,108 - INFO - Бот запущен
+2025-03-27 14:40:59,113 - INFO - Кеш успешно загружен
+2025-03-27 14:40:59,114 - INFO - Подключение к Google Sheets...
+2025-03-27 14:41:01,607 - INFO - Успешное подключение к Google Sheets
+2025-03-27 14:41:01,865 - INFO - Данные в Google Sheets не изменились, используется кеш
+2025-03-27 14:41:01,873 - INFO - База знаний загружена: 114 записей, 114 вопросов
+2025-03-27 14:41:01,875 - INFO - Start polling
+2025-03-27 14:41:02,235 - INFO - Run polling for bot @vel26testbot id=7582800146 - 'testbot'
+2025-03-27 14:41:08,309 - INFO - Получена команда /start от 640063939
+2025-03-27 14:41:09,034 - INFO - Update id=793837921 is handled. Duration 719 ms by bot id=7582800146
+2025-03-27 14:41:18,757 - INFO - Получено сообщение от 640063939: Новый диалог
+2025-03-27 14:41:19,981 - INFO - Поиск в базе знаний для запроса: новый диалог
+2025-03-27 14:41:20,057 - INFO - Ответ в базе знаний не найден, выполняется поиск в интернете: новый диалог
+2025-03-27 14:41:20,057 - INFO - Поиск в интернете: новый диалог
+2025-03-27 14:41:22,421 - WARNING - Результаты поиска пусты
+2025-03-27 14:41:22,426 - INFO - Проверка, является ли запрос ссылкой на продукт DNS: новый диалог
+2025-03-27 14:41:22,427 - INFO - Анализ запроса DNS: новый диалог
+2025-03-27 14:41:23,348 - ERROR - Ошибка анализа DNS: 401 Client Error: Unauthorized for url: https://www.dns-shop.ru/search/?q=%D0%BD%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%B4%D0%B8%D0%B0%D0%BB%D0%BE%D0%B3
+2025-03-27 14:41:23,353 - INFO - Использование AI-знаний через Groq для запроса: новый диалог
+2025-03-27 14:41:24,550 - INFO - Update id=793837922 is handled. Duration 5797 ms by bot id=7582800146
+2025-03-27 14:44:04,192 - INFO - Получено сообщение от 640063939: Как оформить Оснт?
+2025-03-27 14:44:05,583 - INFO - Поиск в базе знаний для запроса: как оформить оснт?
+2025-03-27 14:44:05,642 - INFO - Найден ответ в базе знаний для запроса: как оформить оснт?
+2025-03-27 14:44:05,946 - INFO - Update id=793837923 is not handled. Duration 1750 ms by bot id=7582800146
+2025-03-27 14:44:05,947 - ERROR - Cause exception while process update id=793837923 by bot id=7582800146
+TelegramBadRequest: Telegram server says - Bad Request: MESSAGE_TOO_LONG
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\AIBot\Handlers.py", line 115, in handle_message
+    await typing_message.edit_text(answer, reply_markup=reaction_keyboard)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\client\bot.py", line 488, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\client\session\aiohttp.py", line 189, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: MESSAGE_TOO_LONG
+2025-03-27 14:45:37,950 - INFO - Polling stopped
+2025-03-27 14:45:38,214 - INFO - Polling stopped for bot @vel26testbot id=7582800146 - 'testbot'
+2025-03-27 14:45:44,169 - INFO - Загрузка переменных окружения из .env...
+2025-03-27 14:45:44,172 - INFO - Переменные окружения успешно загружены
+2025-03-27 14:45:44,365 - INFO - Loading faiss.
+2025-03-27 14:45:44,466 - INFO - Successfully loaded faiss.
+2025-03-27 14:45:52,449 - INFO - Инициализация модели SentenceTransformer...
+2025-03-27 14:45:52,450 - INFO - Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+2025-03-27 14:45:55,248 - INFO - Use pytorch device_name: cpu
+2025-03-27 14:45:55,252 - INFO - Модель SentenceTransformer успешно загружена
+2025-03-27 14:45:55,761 - INFO - Инициализация клиента Groq...
+2025-03-27 14:45:56,267 - INFO - Клиент Groq успешно инициализирован
+2025-03-27 14:45:56,270 - INFO - Инициализация бота...
+2025-03-27 14:45:56,772 - INFO - Инициализация диспетчера...
+2025-03-27 14:45:56,773 - INFO - Регистрация команд...
+2025-03-27 14:45:56,773 - INFO - Начало регистрации команд...
+2025-03-27 14:45:56,774 - INFO - Команды успешно зарегистрированы
+2025-03-27 14:45:56,775 - INFO - Регистрация обработчиков...
+2025-03-27 14:45:56,776 - INFO - Начало регистрации обработчиков...
+2025-03-27 14:45:56,776 - INFO - Обработчики успешно зарегистрированы
+2025-03-27 14:45:56,778 - INFO - Бот запущен
+2025-03-27 14:45:56,784 - INFO - Кеш успешно загружен
+2025-03-27 14:45:56,785 - INFO - Подключение к Google Sheets...
+2025-03-27 14:45:58,758 - INFO - Успешное подключение к Google Sheets
+2025-03-27 14:45:59,027 - INFO - Данные в Google Sheets не изменились, используется кеш
+2025-03-27 14:45:59,031 - INFO - База знаний загружена: 114 записей, 114 вопросов
+2025-03-27 14:45:59,031 - INFO - Start polling
+2025-03-27 14:45:59,383 - INFO - Run polling for bot @vel26testbot id=7582800146 - 'testbot'
+2025-03-27 14:46:08,633 - INFO - Получена команда /start от 640063939
+2025-03-27 14:46:09,336 - INFO - Update id=793837924 is handled. Duration 702 ms by bot id=7582800146
+2025-03-27 14:46:11,876 - INFO - Получено сообщение от 640063939: Новый диалог
+2025-03-27 14:46:12,992 - INFO - Поиск в базе знаний для запроса: новый диалог
+2025-03-27 14:46:13,078 - INFO - Ответ в базе знаний не найден, выполняется поиск в интернете: новый диалог
+2025-03-27 14:46:13,078 - INFO - Поиск в интернете: новый диалог
+2025-03-27 14:46:15,160 - WARNING - Результаты поиска пусты
+2025-03-27 14:46:15,164 - INFO - Проверка, является ли запрос ссылкой на продукт DNS: новый диалог
+2025-03-27 14:46:15,165 - INFO - Анализ запроса DNS: новый диалог
+2025-03-27 14:46:16,141 - ERROR - Ошибка анализа DNS: 401 Client Error: Unauthorized for url: https://www.dns-shop.ru/search/?q=%D0%BD%D0%BE%D0%B2%D1%8B%D0%B9%20%D0%B4%D0%B8%D0%B0%D0%BB%D0%BE%D0%B3
+2025-03-27 14:46:16,148 - INFO - Использование AI-знаний через Groq для запроса: новый диалог
+2025-03-27 14:46:17,216 - INFO - Update id=793837925 is handled. Duration 5343 ms by bot id=7582800146
+2025-03-27 14:46:27,971 - INFO - Получено сообщение от 640063939: Что такое ДСЦ?
+2025-03-27 14:46:29,203 - INFO - Поиск в базе знаний для запроса: что такое дсц?
+2025-03-27 14:46:29,256 - INFO - Найден ответ в базе знаний для запроса: что такое дсц?
+2025-03-27 14:46:29,421 - INFO - Update id=793837926 is handled. Duration 1453 ms by bot id=7582800146
+2025-03-27 14:46:36,126 - INFO - Получено сообщение от 640063939: Как оформить ОСНТ?
+2025-03-27 14:46:37,336 - INFO - Поиск в базе знаний для запроса: как оформить оснт?
+2025-03-27 14:46:37,395 - INFO - Найден ответ в базе знаний для запроса: как оформить оснт?
+2025-03-27 14:46:38,053 - INFO - Update id=793837927 is not handled. Duration 1922 ms by bot id=7582800146
+2025-03-27 14:46:38,054 - ERROR - Cause exception while process update id=793837927 by bot id=7582800146
+TelegramBadRequest: Telegram server says - Bad Request: MESSAGE_TOO_LONG
+Traceback (most recent call last):
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 309, in _process_update
+    response = await self.feed_update(bot, update, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 158, in feed_update
+    response = await self.update.wrap_outer_middleware(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\middlewares\error.py", line 25, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\middlewares\user_context.py", line 56, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\fsm\middleware.py", line 42, in __call__
+    return await handler(event, data)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\dispatcher.py", line 276, in _listen_update
+    return await self.propagate_event(update_type=update_type, event=event, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 146, in propagate_event
+    return await observer.wrap_outer_middleware(_wrapped, event=event, data=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 141, in _wrapped
+    return await self._propagate_event(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\router.py", line 166, in _propagate_event
+    response = await observer.trigger(event, **kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\telegram.py", line 121, in trigger
+    return await wrapped_inner(event, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\dispatcher\event\handler.py", line 43, in call
+    return await wrapped()
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\Desktop\AIBot\Handlers.py", line 112, in handle_message
+    await typing_message.edit_text(answer, reply_markup=reaction_keyboard)
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\methods\base.py", line 84, in emit
+    return await bot(self)
+           ^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\client\bot.py", line 488, in __call__
+    return await self.session(self, method, timeout=request_timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\client\session\base.py", line 254, in __call__
+    return cast(TelegramType, await middleware(bot, method))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\client\session\aiohttp.py", line 189, in make_request
+    response = self.check_response(
+               ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\user\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.12_qbz5n2kfra8p0\LocalCache\local-packages\Python312\site-packages\aiogram\client\session\base.py", line 120, in check_response
+    raise TelegramBadRequest(method=method, message=description)
+aiogram.exceptions.TelegramBadRequest: Telegram server says - Bad Request: MESSAGE_TOO_LONG
+2025-03-27 14:51:53,494 - INFO - Polling stopped
+2025-03-27 14:51:53,747 - INFO - Polling stopped for bot @vel26testbot id=7582800146 - 'testbot'
+2025-03-27 15:01:19,968 - INFO - Загрузка переменных окружения из .env...
+2025-03-27 15:01:19,970 - INFO - Переменные окружения успешно загружены
+2025-03-27 15:07:26,357 - INFO - Загрузка переменных окружения из .env...
+2025-03-27 15:07:26,359 - INFO - Переменные окружения успешно загружены
+2025-03-27 15:12:10,749 - INFO - Загрузка переменных окружения из .env...
+2025-03-27 15:12:10,753 - INFO - Переменные окружения успешно загружены

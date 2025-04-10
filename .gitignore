@@ -1,0 +1,16 @@
+# Игнорируем виртуальные окружения
+venv/
+.venv/
+# Игнорируем файлы конфигурации (например, .env)
+.env
+*.env
+amvera.yml
+credentials.json
+# Игнорируем pycache
+__pycache__/
+# Игнорируем файлы IDE
+.idea/
+.vscode/
+# Игнорируем файлы системы
+.DS_Store
+Thumbs.db
