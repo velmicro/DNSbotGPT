@@ -1,0 +1,91 @@
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 923-886-823
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:20] "[32mGET / HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:20] "GET /login?next=/ HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:21] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:39] "[32mPOST /login?next=/ HTTP/1.1[0m" 302 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:39] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:46] "GET /api-keys HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:51] "[35m[1mGET /knowledge-base HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:51] "GET /knowledge-base?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:51] "GET /knowledge-base?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:51] "GET /knowledge-base?__debugger__=yes&cmd=resource&f=console.png&s=UCMQGQw6HXNqPcBwtygC HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:24:51] "GET /knowledge-base?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:01] "GET /users HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:04] "GET /commands HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:09] "[35m[1mGET /buttons HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:09] "GET /buttons?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:09] "GET /buttons?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:09] "GET /buttons?__debugger__=yes&cmd=resource&f=console.png&s=UCMQGQw6HXNqPcBwtygC HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:09] "GET /buttons?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:15] "[35m[1mGET /dialogs HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:15] "GET /dialogs?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:15] "GET /dialogs?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:16] "GET /dialogs?__debugger__=yes&cmd=resource&f=console.png&s=UCMQGQw6HXNqPcBwtygC HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:16] "GET /dialogs?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:22] "GET /api-keys HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:29] "[35m[1mGET /knowledge-base HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:29] "[36mGET /knowledge-base?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:29] "[36mGET /knowledge-base?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:25:30] "[36mGET /knowledge-base?__debugger__=yes&cmd=resource&f=console.png&s=UCMQGQw6HXNqPcBwtygC HTTP/1.1[0m" 304 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 923-886-823
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:27:46] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:27:48] "[35m[1mGET /knowledge-base HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:27:48] "[36mGET /knowledge-base?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:27:48] "[36mGET /knowledge-base?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:27:49] "GET /knowledge-base?__debugger__=yes&cmd=resource&f=console.png&s=vHvVNFdOkNr2jziC0SAh HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 923-886-823
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:17] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:21] "GET /api-keys HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:23] "[35m[1mGET /knowledge-base HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:23] "[36mGET /knowledge-base?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:23] "[36mGET /knowledge-base?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:24] "GET /knowledge-base?__debugger__=yes&cmd=resource&f=console.png&s=tIMicelCYDduaB5rcA9b HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:28] "GET /users HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:32] "GET /users HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:33] "GET /commands HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:37] "[35m[1mGET /buttons HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:37] "[36mGET /buttons?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:37] "[36mGET /buttons?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:37] "GET /buttons?__debugger__=yes&cmd=resource&f=console.png&s=tIMicelCYDduaB5rcA9b HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:41] "[35m[1mGET /dialogs HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:41] "[36mGET /dialogs?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:41] "[36mGET /dialogs?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:40:41] "GET /dialogs?__debugger__=yes&cmd=resource&f=console.png&s=tIMicelCYDduaB5rcA9b HTTP/1.1" 200 -
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 923-886-823
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:04] "GET / HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:09] "GET /api-keys HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:11] "GET /commands HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:17] "[35m[1mPOST /commands HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:17] "GET /commands?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:17] "GET /commands?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:17] "GET /commands?__debugger__=yes&cmd=resource&f=console.png&s=yIzl7pA7iKNaJHyDsrKV HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:17] "GET /commands?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:26] "[35m[1mPOST /commands HTTP/1.1[0m" 500 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:26] "[36mGET /commands?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:26] "[36mGET /commands?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:26] "[36mGET /commands?__debugger__=yes&cmd=resource&f=console.png&s=yIzl7pA7iKNaJHyDsrKV HTTP/1.1[0m" 304 -
+INFO:werkzeug:127.0.0.1 - - [12/Apr/2025 19:53:26] "[36mGET /commands?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+INFO:werkzeug: * Detected change in 'C:\\project_python\\AIBot_3.2.2\\Handlers.py', reloading
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 923-886-823

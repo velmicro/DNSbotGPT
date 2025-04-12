@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Кнопки</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="buttons" class="form-label">Кнопки (через запятую)</label>
+        <input type="text" class="form-control" id="buttons" name="buttons" value="{{ buttons | join(', ') }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+{% endblock %}

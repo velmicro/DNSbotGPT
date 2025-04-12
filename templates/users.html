@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Пользователи</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="user_id" class="form-label">User ID</label>
+        <input type="text" class="form-control" id="user_id" name="user_id">
+    </div>
+    <button type="submit" name="action" value="block" class="btn btn-warning">Заблокировать</button>
+    <button type="submit" name="action" value="unblock" class="btn btn-success">Разблокировать</button>
+</form>
+<h3>Заблокированные пользователи</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in blocked_users %}
+        <tr>
+            <td>{{ user[0] }}</td>
+            <td>{{ user[1] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

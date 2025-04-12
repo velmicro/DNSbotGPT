@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>База знаний</h2>
+<h3>Добавить новую базу</h3>
+<form method="POST">
+    <input type="hidden" name="action" value="add_sheet">
+    <div class="mb-3">
+        <label for="sheet_id" class="form-label">Google Sheet ID</label>
+        <input type="text" class="form-control" id="sheet_id" name="sheet_id">
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>
+<h3>Текущая база знаний</h3>
+<form method="POST">
+    <input type="hidden" name="action" value="edit">
+    <div class="mb-3">
+        <label for="question" class="form-label">Вопрос</label>
+        <input type="text" class="form-control" id="question" name="question">
+    </div>
+    <div class="mb-3">
+        <label for="keywords" class="form-label">Ключевые слова</label>
+        <input type="text" class="form-control" id="keywords" name="keywords">
+    </div>
+    <div class="mb-3">
+        <label for="answer" class="form-label">Ответ</label>
+        <textarea class="form-control" id="answer" name="answer"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить запись</button>
+</form>
+<h3>Записи</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Вопрос</th>
+            <th>Ключевые слова</th>
+            <th>Ответ</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entry in knowledge %}
+        <tr>
+            <td>{{ entry["Question"] }}</td>
+            <td>{{ entry["Keywords"] }}</td>
+            <td>{{ entry["Answer"] }}</td>
+            <td>
+                <form action="{{ url_for('delete_knowledge', index=loop.index0) }}" method="POST">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

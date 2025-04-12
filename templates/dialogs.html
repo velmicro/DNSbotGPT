@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Диалоги</h2>
+<form method="POST">
+    <input type="hidden" name="action" value="add">
+    <div class="mb-3">
+        <label for="key" class="form-label">Ключ</label>
+        <input type="text" class="form-control" id="key" name="key">
+    </div>
+    <div class="mb-3">
+        <label for="value" class="form-label">Ответ</label>
+        <input type="text" class="form-control" id="value" name="value">
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить</button>
+</form>
+<h3>Текущие диалоги</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ключ</th>
+            <th>Ответ</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for key, value in dialogs.items() %}
+        <tr>
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+            <td>
+                <form method="POST" style="display:inline;">
+                    <input type="hidden" name="action" value="edit">
+                    <input type="hidden" name="key" value="{{ key }}">
+                    <input type="text" name="value" value="{{ value }}" class="form-control d-inline-block" style="width:200px;">
+                    <button type="submit" class="btn btn-primary btn-sm">Редактировать</button>
+                </form>
+                <form method="POST" style="display:inline;">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="key" value="{{ key }}">
+                    <button type="submit" class="btn btn-danger btn-sm">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

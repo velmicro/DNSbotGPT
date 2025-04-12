@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>API-ключи</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="telegram_token" class="form-label">Telegram Token</label>
+        <input type="text" class="form-control" id="telegram_token" name="telegram_token" value="{{ config.TELEGRAM_TOKEN }}">
+    </div>
+    <div class="mb-3">
+        <label for="groq_api_key" class="form-label">Grok API Key</label>
+        <input type="text" class="form-control" id="groq_api_key" name="groq_api_key" value="{{ config.GROQ_API_KEY }}">
+    </div>
+    <div class="mb-3">
+        <label for="google_creds" class="form-label">Google Credentials Path</label>
+        <input type="text" class="form-control" id="google_creds" name="google_creds" value="{{ config.GOOGLE_CREDENTIALS_PATH }}">
+    </div>
+    <div class="mb-3">
+        <label for="spreadsheet_id" class="form-label">Google Spreadsheet ID</label>
+        <input type="text" class="form-control" id="spreadsheet_id" name="spreadsheet_id" value="{{ config.SPREADSHEET_ID }}">
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+{% endblock %}

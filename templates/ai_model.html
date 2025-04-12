@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>AI-модель</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label for="model" class="form-label">Выберите модель</label>
+        <select class="form-control" id="model" name="model">
+            {% for model in models %}
+            <option value="{{ model }}" {% if model == current_model %}selected{% endif %}>{{ model }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
+</form>
+{% endblock %}

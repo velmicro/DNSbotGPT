@@ -12,6 +12,7 @@ import re
 import requests
 from bs4 import BeautifulSoup
 
+
 # Настройка логирования
 logging.basicConfig(
     level=logging.INFO,
@@ -46,16 +47,24 @@ if not os.path.exists(CACHE_DIR):
 # Список стоп-слов (общие слова, которые не несут смысла для поиска)
 STOP_WORDS = {'и', 'в', 'на', 'с', 'по', 'у', 'как', 'все', 'а', 'для', 'то', 'что', 'это', 'не', 'или', 'если'}
 
-def init_google_sheets() -> gspread.Spreadsheet:
+def init_google_sheets():
     """
     Инициализирует подключение к Google Sheets.
+    Возвращает объект gspread.Spreadsheet или None в случае ошибки.
     """
-    logger.info("Подключение к Google Sheets...")
     try:
-        scopes = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
-        creds = Credentials.from_service_account_file(GOOGLE_CREDENTIALS_PATH, scopes=scopes)
+        creds_path = os.getenv("GOOGLE_CREDENTIALS_PATH")
+        spreadsheet_id = os.getenv("SPREADSHEET_ID")
+        if not creds_path or not spreadsheet_id:
+            logger.error("GOOGLE_CREDENTIALS_PATH или SPREADSHEET_ID не указаны в .env")
+            return None
+
+        creds = Credentials.from_service_account_file(creds_path, scopes=[
+            "https://www.googleapis.com/auth/spreadsheets",
+            "https://www.googleapis.com/auth/drive"
+        ])
         client = gspread.authorize(creds)
-        sheet = client.open_by_key(SPREADSHEET_ID)
+        sheet = client.open_by_key(spreadsheet_id)
         logger.info("Успешное подключение к Google Sheets")
         return sheet
     except Exception as e:
@@ -96,7 +105,6 @@ def load_cache() -> tuple[List[Dict[str, Any]], faiss.IndexFlatL2, List[str], st
 def load_knowledge_base() -> tuple[List[Dict[str, Any]], faiss.IndexFlatL2, List[str]]:
     """
     Загружает базу знаний из Google Sheets.
-    Убрана проверка кэша, чтобы данные всегда загружались напрямую из Google Sheets.
     """
     global knowledge_base, vector_index, questions
 
@@ -108,6 +116,7 @@ def load_knowledge_base() -> tuple[List[Dict[str, Any]], faiss.IndexFlatL2, List
     try:
         logger.info("Загрузка данных из Google Sheets...")
         data = sheet.sheet1.get_all_records()
+        logger.info(f"Загружено записей: {len(data)}")
         if not data:
             logger.warning("Google Sheets пуст")
             return [], None, []
@@ -119,6 +128,7 @@ def load_knowledge_base() -> tuple[List[Dict[str, Any]], faiss.IndexFlatL2, List
 
         knowledge_base = data
         questions = [row["Question"] for row in data if "Question" in row and row["Question"]]
+        logger.info(f"Количество вопросов для векторизации: {len(questions)}")
         if not questions:
             logger.warning("Вопросы в базе знаний отсутствуют")
             return knowledge_base, None, []
@@ -138,7 +148,7 @@ def load_knowledge_base() -> tuple[List[Dict[str, Any]], faiss.IndexFlatL2, List
         return knowledge_base, vector_index, questions
     except Exception as e:
         logger.error(f"Ошибка загрузки базы знаний: {e}")
-        return [], None, []
+        raise
 
 async def initialize_knowledge_base():
     """
@@ -293,14 +303,21 @@ async def get_relevant_entries(query: str) -> str:
         logger.error(f"Ошибка при поиске релевантных записей: {e}")
         return "Произошла ошибка при поиске в базе знаний. Попробуй позже! 😔"
 
-def add_to_knowledge_base(question: str, keywords: str, answer: str) -> bool:
+def add_to_knowledge_base(question: str, keywords: str, answer: str):
     """
-    Добавляет новую запись в базу знаний в Google Sheets и обновляет кеш.
+    Добавляет новую запись в базу знаний в Google Sheets.
     """
-    sheet = init_google_sheets()
-    if not sheet:
-        logger.error("Не удалось подключиться к Google Sheets для добавления записи")
-        return False
+    try:
+        sheet = init_google_sheets()
+        if not sheet:
+            logger.error("Не удалось подключиться к Google Sheets для добавления записи")
+            return
+        
+        sheet.sheet1.append_row([question, keywords, answer])
+        logger.info(f"Добавлена новая запись: Вопрос: {question}, Ключевые слова: {keywords}")
+    except Exception as e:
+        logger.error(f"Ошибка добавления записи в базу знаний: {e}")
+        raise
 
     try:
         # Добавляем запись в Google Sheets
