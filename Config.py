@@ -45,3 +45,6 @@ if not GOOGLE_CREDENTIALS_PATH:
 if not SPREADSHEET_ID:
     logger.error("SPREADSHEET_ID не найден в .env")
     raise ValueError("SPREADSHEET_ID не найден в .env")
+
+# Вывод токена для отладки
+logger.info(f"TELEGRAM_TOKEN: {repr(TELEGRAM_TOKEN)}")

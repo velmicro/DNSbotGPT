@@ -33,13 +33,14 @@ async def update_knowledge_base_periodically():
     while True:
         logger.info("Периодическое обновление базы знаний...")
         await initialize_knowledge_base()
-        await asyncio.sleep(900)  # 15 минут
+        await asyncio.sleep(43200)  # 12 часов
 
 async def main():
     """
     Основная функция для запуска бота.
     """
     logger.info("Инициализация бота...")
+    print(f"Токен из .env: {repr(TELEGRAM_TOKEN)}")
     bot = Bot(token=TELEGRAM_TOKEN, default=DefaultBotProperties(parse_mode="HTML"))
     dp = Dispatcher()
 

@@ -14,3 +14,4 @@ __pycache__/
 # Игнорируем файлы системы
 .DS_Store
 Thumbs.db
+.service
