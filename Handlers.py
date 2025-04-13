@@ -4,7 +4,7 @@ import re
 import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeyboardMarkup
-from Utils import get_groq_response, split_message, is_russian_text  # Добавляем импорт is_russian_text
+from Utils import process_message, split_message, is_russian_text
 from Config import GROUP_ID, GROUP_INVITE_LINK
 from Keyboards import get_reaction_keyboard, get_main_keyboard, get_instruction_keyboard
 from Prompts import load_prompts
@@ -64,7 +64,7 @@ def register_handlers(dp: Dispatcher):
     @dp.message()
     async def handle_message(message: types.Message, bot: Bot):
         """
-        Обрабатывает входящие текстовые сообщения, передавая всю логику Groq.
+        Обрабатывает входящие текстовые сообщения, передавая всю логику в process_message.
         """
         logger.info(f"Получено сообщение от {message.from_user.id}: {message.text}")
 
@@ -149,31 +149,22 @@ def register_handlers(dp: Dispatcher):
                 dialog_context[user_id].append({"role": "assistant", "content": response})
                 return
 
-        # Передаём запрос Groq для полной обработки
-        logger.info(f"Передача запроса Groq: {query}")
+        # Передаём запрос в process_message
         try:
-            response = await get_groq_response(query, dialog_context[user_id], is_group=not is_private_chat)
-            if response:
-                reaction_keyboard = get_reaction_keyboard(message.message_id)
-                message_parts = split_message(response)
-                for i, part in enumerate(message_parts):
-                    if i == 0:
-                        await typing_message.edit_text(part, reply_markup=reaction_keyboard)
-                    else:
-                        await message.reply(part)
-                dialog_context[user_id].append({"role": "assistant", "content": response})
-                if len(dialog_context[user_id]) > 10:
-                    dialog_context[user_id] = dialog_context[user_id][-10:]
-                return
-            else:
-                # Fallback на знания Groq
-                await typing_message.edit_text("Не смог найти точный ответ, но попробую помочь, используя свои знания. 😊\n\n" + 
-                                               "Пожалуйста, уточните запрос или переформулируйте вопрос.")
+            response = await process_message(query)
+            reaction_keyboard = get_reaction_keyboard(message.message_id)
+            message_parts = split_message(response)
+            for i, part in enumerate(message_parts):
+                if i == 0:
+                    await typing_message.edit_text(part, reply_markup=reaction_keyboard)
+                else:
+                    await message.reply(part)
+            dialog_context[user_id].append({"role": "assistant", "content": response})
+            if len(dialog_context[user_id]) > 10:
+                dialog_context[user_id] = dialog_context[user_id][-10:]
         except Exception as e:
-            logger.error(f"Ошибка обработки запроса Groq: {e}")
-            # Fallback на знания Groq
-            await typing_message.edit_text("Произошла ошибка, но я могу помочь, используя свои знания. 😊\n\n" + 
-                                           "Пожалуйста, уточните запрос или переформулируйте вопрос.")
+            logger.error(f"Ошибка обработки запроса: {e}")
+            await typing_message.edit_text("Произошла ошибка. Пожалуйста, уточните запрос или переформулируйте вопрос. 😔")
 
     @dp.callback_query(lambda c: c.data.startswith("reaction_"))
     async def handle_reaction(callback: types.CallbackQuery):

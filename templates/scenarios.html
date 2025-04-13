@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Управление сценариями</h2>
+
+<!-- Добавление нового сценария -->
+<h3>Добавить новый сценарий</h3>
+<form method="POST">
+    <input type="hidden" name="action" value="add_scenario">
+    <div class="mb-3">
+        <label for="scenario_id" class="form-label">Идентификатор сценария</label>
+        <input type="text" class="form-control" id="scenario_id" name="scenario_id" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить сценарий</button>
+</form>
+
+<!-- Список сценариев -->
+<h3>Существующие сценарии</h3>
+{% for scenario in scenarios %}
+<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Сценарий: {{ scenario.id }}</h5>
+        <form action="{{ url_for('scenarios') }}" method="POST" style="display:inline;">
+            <input type="hidden" name="action" value="delete_scenario">
+            <input type="hidden" name="scenario_index" value="{{ loop.index0 }}">
+            <button type="submit" class="btn btn-danger">Удалить сценарий</button>
+        </form>
+    </div>
+    <div class="card-body">
+        <!-- Добавление шага -->
+        <h6>Добавить шаг</h6>
+        <form method="POST">
+            <input type="hidden" name="action" value="add_step">
+            <input type="hidden" name="scenario_index" value="{{ loop.index0 }}">
+            <div class="mb-3">
+                <label for="step_id_{{ loop.index0 }}" class="form-label">Идентификатор шага</label>
+                <input type="text" class="form-control" id="step_id_{{ loop.index0 }}" name="step_id" required>
+            </div>
+            <div class="mb-3">
+                <label for="text_{{ loop.index0 }}" class="form-label">Текст ответа</label>
+                <textarea class="form-control" id="text_{{ loop.index0 }}" name="text" required></textarea>
+            </div>
+            <div class="mb-3">
+                <h6>Кнопки (до 5)</h6>
+                {% for i in range(5) %}
+                <div class="row mb-2">
+                    <div class="col">
+                        <input type="text" class="form-control" name="btn_text_{{ i }}" placeholder="Текст кнопки">
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="next_step_{{ i }}" placeholder="Следующий шаг (step_id)">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить шаг</button>
+        </form>
+
+        <!-- Список шагов -->
+        <h6 class="mt-4">Шаги сценария</h6>
+        {% for step in scenario.steps %}
+        <div class="card mb-2">
+            <div class="card-body">
+                <p><strong>Шаг:</strong> {{ step.step_id }}</p>
+                <p><strong>Текст:</strong> {{ step.text }}</p>
+                <p><strong>Кнопки:</strong></p>
+                <ul>
+                    {% for btn in step.buttons %}
+                    <li>{{ btn.text }} → {{ btn.next_step }}</li>
+                    {% endfor %}
+                </ul>
+                <form action="{{ url_for('scenarios') }}" method="POST" style="display:inline;">
+                    <input type="hidden" name="action" value="delete_step">
+                    <input type="hidden" name="scenario_index" value="{{ loop.parent.loop.index0 }}">
+                    <input type="hidden" name="step_index" value="{{ loop.index0 }}">
+                    <button type="submit" class="btn btn-danger btn-sm">Удалить шаг</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

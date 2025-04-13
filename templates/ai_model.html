@@ -1,14 +1,39 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>AI-модель</h2>
+<h2>Управление AI-моделью</h2>
+
+<!-- Включение/выключение AI -->
+<h3>Настройки AI</h3>
 <form method="POST">
+    <input type="hidden" name="action" value="toggle_ai">
+    <div class="form-check mb-3">
+        <input type="checkbox" class="form-check-input" id="use_ai" name="use_ai" {% if use_ai %}checked{% endif %} onclick="this.form.submit()">
+        <label class="form-check-label" for="use_ai">Использовать AI</label>
+    </div>
+</form>
+
+<!-- Выбор модели -->
+<h3>Выбор модели</h3>
+<form method="POST">
+    <input type="hidden" name="action" value="update_model">
     <div class="mb-3">
-        <label for="model" class="form-label">Выберите модель</label>
-        <select class="form-control" id="model" name="model">
-            {% for model in models %}
+        <label for="model" class="form-label">Текущая модель</label>
+        <select class="form-control" id="model" name="model" onchange="this.form.submit()">
+            {% for model in available_models %}
             <option value="{{ model }}" {% if model == current_model %}selected{% endif %}>{{ model }}</option>
             {% endfor %}
         </select>
+    </div>
+</form>
+
+<!-- Настройки Groq -->
+<h3>Настройки Groq</h3>
+<form method="POST">
+    <input type="hidden" name="action" value="update_grok_api_key">
+    <div class="mb-3">
+        <label for="grok_api_key" class="form-label">API-ключ Groq</label>
+        <input type="text" class="form-control" id="grok_api_key" name="grok_api_key" value="{{ model_config.grok.api_key }}">
+        <small class="form-text text-muted">{{ model_config.grok.instructions }}</small>
     </div>
     <button type="submit" class="btn btn-primary">Сохранить</button>
 </form>

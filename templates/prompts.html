@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Управление промптами</h2>
+
+<!-- Основные настройки -->
+<h3>Основные настройки</h3>
+<form method="POST">
+    <input type="hidden" name="action" value="update_settings">
+    <div class="mb-3">
+        <label for="name" class="form-label">Имя бота</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{ settings.name }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="greeting" class="form-label">Приветствие</label>
+        <textarea class="form-control" id="greeting" name="greeting" required>{{ settings.greeting }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="role" class="form-label">Роль</label>
+        <input type="text" class="form-control" id="role" name="role" value="{{ settings.role }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="goal" class="form-label">Цели</label>
+        <textarea class="form-control" id="goal" name="goal" required>{{ settings.goal }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Сохранить настройки</button>
+</form>
+
+<!-- Правила поведения -->
+<h3 class="mt-5">Правила поведения</h3>
+<h4>Добавить правило</h4>
+<form method="POST">
+    <input type="hidden" name="action" value="add_behavior">
+    <div class="mb-3">
+        <label for="new_behavior" class="form-label">Новое правило</label>
+        <input type="text" class="form-control" id="new_behavior" name="new_behavior" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить правило</button>
+</form>
+
+<h4 class="mt-4">Существующие правила</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Правило</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for behavior in settings.behavior %}
+        <tr>
+            <td>{{ behavior }}</td>
+            <td>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editBehaviorModal{{ loop.index0 }}">Редактировать</button>
+                <form action="{{ url_for('prompts') }}" method="POST" style="display:inline;">
+                    <input type="hidden" name="action" value="delete_behavior">
+                    <input type="hidden" name="index" value="{{ loop.index0 }}">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        <div class="modal fade" id="editBehaviorModal{{ loop.index0 }}" tabindex="-1" aria-labelledby="editBehaviorModalLabel{{ loop.index0 }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editBehaviorModalLabel{{ loop.index0 }}">Редактировать правило</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            <input type="hidden" name="action" value="edit_behavior">
+                            <input type="hidden" name="index" value="{{ loop.index0 }}">
+                            <div class="mb-3">
+                                <label for="behavior_{{ loop.index0 }}" class="form-label">Правило</label>
+                                <input type="text" class="form-control" id="behavior_{{ loop.index0 }}" name="behavior" value="{{ behavior }}" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Ограничения -->
+<h3 class="mt-5">Ограничения</h3>
+<h4>Добавить ограничение</h4>
+<form method="POST">
+    <input type="hidden" name="action" value="add_restriction">
+    <div class="mb-3">
+        <label for="new_restriction" class="form-label">Новое ограничение</label>
+        <input type="text" class="form-control" id="new_restriction" name="new_restriction" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить ограничение</button>
+</form>
+
+<h4 class="mt-4">Существующие ограничения</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ограничение</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for restriction in settings.restrictions %}
+        <tr>
+            <td>{{ restriction }}</td>
+            <td>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editRestrictionModal{{ loop.index0 }}">Редактировать</button>
+                <form action="{{ url_for('prompts') }}" method="POST" style="display:inline;">
+                    <input type="hidden" name="action" value="delete_restriction">
+                    <input type="hidden" name="index" value="{{ loop.index0 }}">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        <div class="modal fade" id="editRestrictionModal{{ loop.index0 }}" tabindex="-1" aria-labelledby="editRestrictionModalLabel{{ loop.index0 }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editRestrictionModalLabel{{ loop.index0 }}">Редактировать ограничение</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            <input type="hidden" name="action" value="edit_restriction">
+                            <input type="hidden" name="index" value="{{ loop.index0 }}">
+                            <div class="mb-3">
+                                <label for="restriction_{{ loop.index0 }}" class="form-label">Ограничение</label>
+                                <input type="text" class="form-control" id="restriction_{{ loop.index0 }}" name="restriction" value="{{ restriction }}" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

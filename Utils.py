@@ -8,6 +8,9 @@ import os
 from Config import GROQ_API_KEY
 from Google_sheets import get_relevant_entries, parse_and_add_to_sheet
 from Prompts import load_prompts
+from ai_models import AIModel
+
+ai_model = AIModel()
 
 # Настройка логирования
 logging.basicConfig(
@@ -235,121 +238,37 @@ async def search_on_site(query: str, site: str) -> str:
         logger.error(f"Ошибка при поиске на сайте {site}: {e}")
         return f"Произошла ошибка при поиске на сайте {site}."
 
-async def get_groq_response(query: str, context: list = None, is_group: bool = False) -> str:
-    """
-    Получает ответ от Groq API с учётом контекста диалога.
-    Модель формирует ответ в формате: <b>Заголовок</b>\n\nТекст\n\n<i>Примечание</i>
-    """
-    if context is None:
-        context = []
-
-    # Загружаем системные настройки
-    prompts_data = load_prompts()
-    system_settings = prompts_data["settings"]
-    search_instructions = prompts_data["search_instructions"]
-    emojis = prompts_data["emojis"]
-
-    # Формируем системный промпт
-    system_prompt = (
-        f"Ты {system_settings['name']}, {system_settings['role']}. "
-        f"Твоя цель: {system_settings['goal']}. "
-        "Поведение:\n" + "\n".join([f"- {rule}" for rule in system_settings["behavior"]]) + "\n"
-        "Ограничения:\n" + "\n".join([f"- {rule}" for rule in system_settings["restrictions"]]) + "\n"
-        "Дополнительные инструкции:\n"
-        "- Всегда отвечай только на русском языке.\n"
-        "- Используй кодировку UTF-8.\n"
-        "- Исключай любую информацию о погоде.\n"
-        "- Если запрос связан с юридической информацией, используй данные из предоставленной информации с consultant.ru.\n"
-        "- Если запрос связан с товарами DNS, используй данные из предоставленной информации с dns-shop.ru.\n"
-        "- Если запрос связан с диагностикой техники или выполнением услуг, предоставляй пошаговые инструкции.\n"
-        "- Если информация отсутствует в базе знаний или на сайтах, используй свои знания для ответа.\n"
-        "- Не используй смайлики в ответе, они будут добавлены позже.\n"
-        "- Формируй ответ в следующем формате:\n"
-        "  <b>Заголовок</b>\n\n"
-        "  Основной текст ответа\n\n"
-        "  <i>Примечание</i>\n"
-        "- Заголовок должен быть кратким (до 5 слов) и отражать суть запроса.\n"
-        "- Между заголовком и основным текстом, а также между основным текстом и примечанием должно быть ровно два переноса строки (\\n\\n).\n"
-        "- Основной текст ответа должен быть в одном из следующих форматов, в зависимости от типа запроса:\n"
-        "  - Для инструкций или диагностики: пошаговый список (1. Текст, 2. Текст, ...).\n"
-        "  - Для характеристик: маркированный список (- Текст, - Текст, ...).\n"
-        "  - Для юридической информации, сравнений, информации о товаре или общих запросов: простой текст.\n"
-        "- Примечание должно быть кратким (1-2 предложения) и содержать дополнительную информацию или совет, основанный на базе знаний, данных с сайтов или твоих знаниях.\n"
-        "- Если предоставлены данные из базы знаний или с сайтов, обязательно используй их для формирования ответа.\n"
-    )
+async def process_message(user_input: str) -> str:
+    """Обрабатывает сообщение пользователя и возвращает ответ."""
+    prompts = load_prompts()
+    dialogs = prompts.get("dialogs", {})
+    user_input_lower = user_input.lower().strip()
+    if user_input_lower in dialogs:
+        return dialogs[user_input_lower]
 
     # Получаем релевантные записи из базы знаний
-    knowledge_text = await get_relevant_entries(query)
-    logger.info(f"Данные из Google Sheets: {knowledge_text}")
+    knowledge_text = await get_relevant_entries(user_input)
     if knowledge_text and "Не нашёл" not in knowledge_text and "ошибка" not in knowledge_text:
-        system_prompt += f"\n\nРелевантные записи из базы знаний:\n{knowledge_text}"
-    elif "ошибка" in knowledge_text.lower():
-        logger.error(f"Ошибка при получении данных из Google Sheets: {knowledge_text}")
-        return f"{emojis['error']} <b>Ошибка базы знаний</b>\n\n{knowledge_text}\n\n<i>Попробуй позже или уточни запрос.</i>"
+        user_input = f"{user_input}\n\nРелевантные записи из базы знаний:\n{knowledge_text}"
 
     # Проверяем, нужно ли искать информацию на сайте
-    site_response = None
-    logger.info(f"Инструкции для поиска: {search_instructions}")
+    search_instructions = prompts.get("search_instructions", [])
     for instruction in search_instructions:
         theme = instruction["theme"]
         site = instruction["site"]
-        if theme in query.lower():
-            logger.info(f"Найдена тема '{theme}' для сайта {site}, выполняем поиск...")
-            site_response = await search_on_site(query, site)
-            logger.info(f"Результат поиска на сайте {site}: {site_response}")
+        if theme in user_input_lower:
+            site_response = await search_on_site(user_input, site)
             if site_response and "Не найдено" not in site_response and "ошибка" not in site_response:
-                system_prompt += f"\n\nИнформация с сайта {site}:\n{site_response}"
+                user_input = f"{user_input}\n\nИнформация с сайта {site}:\n{site_response}"
             break
 
-    # Формируем сообщения для Groq
-    messages = [
-        {"role": "system", "content": system_prompt},
-    ] + context + [
-        {"role": "user", "content": query}
-    ]
-
-    try:
-        logger.info("Отправка запроса к Groq API...")
-        async with aiohttp.ClientSession() as session:
-            async with session.post(
-                "https://api.groq.com/openai/v1/chat/completions",
-                headers={
-                    "Authorization": f"Bearer {GROQ_API_KEY}",
-                    "Content-Type": "application/json"
-                },
-                json={
-                    "model": "llama-3.3-70b-versatile",
-                    "messages": messages,
-                    "max_tokens": 1000,
-                    "temperature": 0.7
-                }
-            ) as response:
-                logger.info(f"Статус ответа от Groq API: {response.status}")
-                if response.status != 200:
-                    error_text = await response.text()
-                    logger.error(f"Ошибка Groq API: статус {response.status}, ответ: {error_text}")
-                    return f"{emojis['error']} <b>Ошибка API</b>\n\nПроизошла ошибка при получении ответа.\n\n<i>Попробуй уточнить запрос!</i>"
-
-                data = await response.json()
-                logger.info(f"Ответ от Groq API: {data}")
-                if "choices" not in data or not data["choices"]:
-                    logger.error(f"Ответ Groq API не содержит 'choices': {data}")
-                    return f"{emojis['error']} <b>Ошибка ответа</b>\n\nНе удалось получить ответ от Groq.\n\n<i>Попробуй позже!</i>"
-
-                response_text = data["choices"][0]["message"]["content"].strip()
-
-                # Проверяем, что ответ на русском языке
-                if not is_russian_text(response_text):
-                    logger.warning(f"Ответ содержит не русские символы: {response_text}")
-                    return f"{emojis['error']} <b>Ошибка языка</b>\n\nОтвет содержит символы не на русском языке.\n\n<i>Попробуй переформулировать запрос!</i>"
-
-                # Форматируем ответ
-                template = determine_response_template(query)
-                formatted_response = await format_response(response_text, template, query)
-                return formatted_response
-    except Exception as e:
-        logger.error(f"Ошибка при запросе к Groq API: {e}")
-        return f"{emojis['error']} <b>Ошибка обработки</b>\n\nНе смог найти точный ответ.\n\n<i>Попробуй уточнить запрос или переформулировать вопрос.</i>"
+    # Используем AI-модель
+    response = await ai_model.generate_response(user_input)
+    
+    # Форматируем ответ
+    template = determine_response_template(user_input)
+    formatted_response = await format_response(response, template, user_input)
+    return formatted_response
 
 def split_message(message: str, max_length: int = 4096) -> list:
     """
