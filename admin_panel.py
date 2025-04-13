@@ -32,6 +32,17 @@ PROMPTS_FILE = "prompts.json"
 CONFIG_FILE = ".env"
 DB_FILE = "admin.db"
 
+# Функция для сохранения prompts
+def save_prompts(prompts_data):
+    """Сохранение данных prompts в prompts.json."""
+    try:
+        with open(PROMPTS_FILE, "w", encoding='utf-8') as f:
+            json.dump(prompts_data, f, ensure_ascii=False, indent=4)
+        logger.info("Prompts успешно сохранены в prompts.json")
+    except Exception as e:
+        logger.error(f"Ошибка при сохранении prompts: {str(e)}")
+        flash(f"Ошибка при сохранении prompts: {str(e)}")
+
 # Инициализация SQLite
 def init_db():
     with sqlite3.connect(DB_FILE) as conn:
@@ -101,7 +112,7 @@ def api_keys():
         telegram_token = request.form.get("telegram_token")
         groq_api_key = request.form.get("groq_api_key")
         google_creds = request.form.get("google_creds")
-        spreadsheet_id = request.form.get("spreadsheet_id")  # Добавляем поле для SPREADSHEET_ID
+        spreadsheet_id = request.form.get("spreadsheet_id")
         try:
             with open(CONFIG_FILE, "w", encoding='utf-8') as f:
                 f.write(f"TELEGRAM_TOKEN={telegram_token}\n")
@@ -125,7 +136,7 @@ def api_keys():
 
 @app.route("/knowledge-base", methods=["GET", "POST"])
 @login_required
-def knowledge_base():  # Убираем async
+def knowledge_base():
     try:
         if request.method == "POST":
             action = request.form.get("action")
@@ -138,13 +149,12 @@ def knowledge_base():  # Убираем async
                 question = request.form.get("question")
                 keywords = request.form.get("keywords")
                 answer = request.form.get("answer")
-                add_to_knowledge_base(question, keywords, answer)  # Убираем await
+                add_to_knowledge_base(question, keywords, answer)
                 flash("Запись добавлена в базу знаний.")
         
-        knowledge = load_knowledge_base()  # Убираем await
+        knowledge = load_knowledge_base()
         logger.info(f"Данные из load_knowledge_base: {knowledge[0]}")
         sheets = [os.getenv("SPREADSHEET_ID")]
-        # Проверяем, что knowledge[0] не пуст
         if not knowledge[0]:
             flash("База знаний пуста. Добавьте записи.")
         return render_template("knowledge_base.html", sheets=sheets, knowledge=knowledge[0])
@@ -155,9 +165,9 @@ def knowledge_base():  # Убираем async
 
 @app.route("/delete-knowledge/<int:index>", methods=["POST"])
 @login_required
-def delete_knowledge(index):  # Убираем async
+def delete_knowledge(index):
     try:
-        knowledge = load_knowledge_base()  # Убираем await
+        knowledge = load_knowledge_base()
         if 0 <= index < len(knowledge[0]):
             sheet = init_google_sheets()
             sheet.sheet1.delete_rows(index + 2)  # +2 учитывает заголовок
@@ -176,7 +186,6 @@ def ai_model():
     current_model = settings.get("model", "llama3-8b-8192")
     use_ai = settings.get("use_ai", True)
 
-    # Список поддерживаемых моделей Groq
     available_models = [
         "gemma-2-9b-it",
         "llama-3-70b-versatile",
@@ -242,16 +251,17 @@ def commands():
 
     if request.method == "POST":
         action = request.form.get("action")
-        
-        if action == "add":
+
+        if action == "add_command":
             name = request.form.get("name")
-            response_type = request.form.get("type")
+            cmd_type = request.form.get("type")
             response = request.form.get("response")
             access = request.form.get("access")
-
+            show_keyboard = request.form.get("show_keyboard") == "on"
+            
             inline_buttons = []
-            if response_type == "inline_buttons":
-                for i in range(10):  # До 10 кнопок
+            if cmd_type == "inline_buttons":
+                for i in range(5):
                     btn_text = request.form.get(f"btn_text_{i}")
                     btn_url = request.form.get(f"btn_url_{i}")
                     if btn_text and btn_url:
@@ -259,43 +269,39 @@ def commands():
 
             new_command = {
                 "name": name,
-                "type": response_type,
+                "type": cmd_type,
                 "response": response,
                 "access": access,
-                "inline_buttons": inline_buttons
+                "inline_buttons": inline_buttons,
+                "show_keyboard": show_keyboard
             }
             commands.append(new_command)
             prompts["settings"]["commands"] = commands
             save_prompts(prompts)
             flash("Команда добавлена. Перезапустите бота.")
 
-        elif action == "edit":
+        elif action == "edit_command":
             index = int(request.form.get("index"))
-            name = request.form.get("name")
-            response_type = request.form.get("type")
-            response = request.form.get("response")
-            access = request.form.get("access")
-
+            commands[index]["name"] = request.form.get("name")
+            commands[index]["type"] = request.form.get("type")
+            commands[index]["response"] = request.form.get("response")
+            commands[index]["access"] = request.form.get("access")
+            commands[index]["show_keyboard"] = request.form.get("show_keyboard") == "on"
+            
             inline_buttons = []
-            if response_type == "inline_buttons":
-                for i in range(10):
+            if commands[index]["type"] == "inline_buttons":
+                for i in range(5):
                     btn_text = request.form.get(f"btn_text_{i}")
                     btn_url = request.form.get(f"btn_url_{i}")
                     if btn_text and btn_url:
                         inline_buttons.append({"text": btn_text, "url": btn_url})
-
-            commands[index] = {
-                "name": name,
-                "type": response_type,
-                "response": response,
-                "access": access,
-                "inline_buttons": inline_buttons
-            }
+            commands[index]["inline_buttons"] = inline_buttons
+            
             prompts["settings"]["commands"] = commands
             save_prompts(prompts)
             flash("Команда обновлена. Перезапустите бота.")
 
-        elif action == "delete":
+        elif action == "delete_command":
             index = int(request.form.get("index"))
             commands.pop(index)
             prompts["settings"]["commands"] = commands
@@ -317,7 +323,7 @@ def buttons():
         if action == "add":
             text = request.form.get("text")
             response = request.form.get("response")
-            position = len(buttons)  # Новая кнопка добавляется в конец
+            position = len(buttons)
             buttons.append({"text": text, "response": response, "position": position})
             prompts["settings"]["buttons"] = buttons
             save_prompts(prompts)
@@ -329,7 +335,7 @@ def buttons():
             response = request.form.get("response")
             position = int(request.form.get("position"))
             buttons[index] = {"text": text, "response": response, "position": position}
-            buttons.sort(key=lambda x: x["position"])  # Сортируем по позиции
+            buttons.sort(key=lambda x: x["position"])
             prompts["settings"]["buttons"] = buttons
             save_prompts(prompts)
             flash("Кнопка обновлена. Перезапустите бота.")
@@ -337,7 +343,6 @@ def buttons():
         elif action == "delete":
             index = int(request.form.get("index"))
             buttons.pop(index)
-            # Пересчитываем позиции
             for i, btn in enumerate(buttons):
                 btn["position"] = i
             prompts["settings"]["buttons"] = buttons
@@ -373,7 +378,7 @@ def scenarios():
             step_id = request.form.get("step_id")
             text = request.form.get("text")
             buttons = []
-            for i in range(5):  # До 5 кнопок на шаг
+            for i in range(5):
                 btn_text = request.form.get(f"btn_text_{i}")
                 next_step = request.form.get(f"next_step_{i}")
                 if btn_text and next_step:
@@ -441,7 +446,7 @@ def prompts():
         elif action == "delete_behavior":
             index = int(request.form.get("index"))
             settings["behavior"].pop(index)
-            prompts_data["settings"] = settings
+            prompts["settings"] = settings
             save_prompts(prompts_data)
             flash("Правило поведения удалено. Перезапустите бота.")
 
@@ -469,6 +474,21 @@ def prompts():
             flash("Ограничение удалено. Перезапустите бота.")
 
     return render_template("prompts.html", settings=settings)
+
+@app.route("/dialogs", methods=["GET", "POST"])
+@login_required
+def dialogs():
+    prompts = load_prompts()
+    dialogs = prompts["settings"].get("dialogs", [])
+    if request.method == "POST":
+        action = request.form.get("action")
+        if action == "add_dialog":
+            dialog_id = request.form.get("dialog_id")
+            dialogs.append({"id": dialog_id, "messages": []})
+            prompts["settings"]["dialogs"] = dialogs
+            save_prompts(prompts)
+            flash("Диалог добавлен. Перезапустите бота.")
+    return render_template("dialogs.html", dialogs=dialogs)
 
 if __name__ == "__main__":
     app.run(debug=True)

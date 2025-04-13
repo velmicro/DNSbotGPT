@@ -2,83 +2,84 @@
 {% block content %}
 <h2>Управление кнопками</h2>
 
-<!-- Настройка раскладки клавиатуры -->
-<h3>Настройки клавиатуры</h3>
+<!-- Количество кнопок в строке -->
+<h3>Настройки отображения</h3>
 <form method="POST">
-    <input type="hidden" name="action" value="update_layout">
+    <input type="hidden" name="action" value="update_buttons_per_row">
     <div class="mb-3">
-        <label for="buttons_per_row" class="form-label">Количество кнопок в ряду</label>
-        <input type="number" class="form-control" id="buttons_per_row" name="buttons_per_row" value="{{ buttons_per_row }}" min="1" max="5">
+        <label for="buttons_per_row" class="form-label">Количество кнопок в строке</label>
+        <input type="number" class="form-control" id="buttons_per_row" name="buttons_per_row" value="{{ buttons_per_row }}" min="1" max="5" required>
     </div>
-    <button type="submit" class="btn btn-primary">Сохранить настройки</button>
+    <button type="submit" class="btn btn-primary">Сохранить</button>
 </form>
 
-<!-- Форма добавления кнопки -->
-<h3>Добавить новую кнопку</h3>
+<!-- Добавление новой кнопки -->
+<h3 class="mt-5">Добавить кнопку</h3>
 <form method="POST">
-    <input type="hidden" name="action" value="add">
+    <input type="hidden" name="action" value="add_button">
     <div class="mb-3">
         <label for="text" class="form-label">Текст кнопки</label>
         <input type="text" class="form-control" id="text" name="text" required>
     </div>
     <div class="mb-3">
-        <label for="response" class="form-label">Ответ после нажатия</label>
+        <label for="response" class="form-label">Ответ на нажатие</label>
         <textarea class="form-control" id="response" name="response" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="position" class="form-label">Позиция (0 — первая)</label>
+        <input type="number" class="form-control" id="position" name="position" value="{{ buttons|length }}" min="0">
     </div>
     <button type="submit" class="btn btn-primary">Добавить кнопку</button>
 </form>
 
 <!-- Список существующих кнопок -->
-<h3>Существующие кнопки</h3>
+<h3 class="mt-5">Существующие кнопки</h3>
 <table class="table">
     <thead>
         <tr>
-            <th>Позиция</th>
             <th>Текст</th>
             <th>Ответ</th>
+            <th>Позиция</th>
             <th>Действия</th>
         </tr>
     </thead>
     <tbody>
-        {% for btn in buttons|sort(attribute='position') %}
+        {% for button in buttons|sort(attribute='position') %}
         <tr>
-            <td>{{ btn.position }}</td>
-            <td>{{ btn.text }}</td>
-            <td>{{ btn.response }}</td>
+            <td>{{ button.text }}</td>
+            <td>{{ button.response }}</td>
+            <td>{{ button.position }}</td>
             <td>
-                <!-- Кнопка редактирования -->
-                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal{{ loop.index0 }}">Редактировать</button>
-                <!-- Кнопка удаления -->
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editButtonModal{{ loop.index0 }}">Редактировать</button>
                 <form action="{{ url_for('buttons') }}" method="POST" style="display:inline;">
-                    <input type="hidden" name="action" value="delete">
+                    <input type="hidden" name="action" value="delete_button">
                     <input type="hidden" name="index" value="{{ loop.index0 }}">
                     <button type="submit" class="btn btn-danger">Удалить</button>
                 </form>
             </td>
         </tr>
-        <!-- Модальное окно для редактирования -->
-        <div class="modal fade" id="editModal{{ loop.index0 }}" tabindex="-1" aria-labelledby="editModalLabel{{ loop.index0 }}" aria-hidden="true">
+        <div class="modal fade" id="editButtonModal{{ loop.index0 }}" tabindex="-1" aria-labelledby="editButtonModalLabel{{ loop.index0 }}" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel{{ loop.index0 }}">Редактировать кнопку</h5>
+                        <h5 class="modal-title" id="editButtonModalLabel{{ loop.index0 }}">Редактировать кнопку</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <form method="POST">
-                            <input type="hidden" name="action" value="edit">
+                            <input type="hidden" name="action" value="edit_button">
                             <input type="hidden" name="index" value="{{ loop.index0 }}">
                             <div class="mb-3">
                                 <label for="text_{{ loop.index0 }}" class="form-label">Текст кнопки</label>
-                                <input type="text" class="form-control" id="text_{{ loop.index0 }}" name="text" value="{{ btn.text }}" required>
+                                <input type="text" class="form-control" id="text_{{ loop.index0 }}" name="text" value="{{ button.text }}" required>
                             </div>
                             <div class="mb-3">
-                                <label for="response_{{ loop.index0 }}" class="form-label">Ответ после нажатия</label>
-                                <textarea class="form-control" id="response_{{ loop.index0 }}" name="response" required>{{ btn.response }}</textarea>
+                                <label for="response_{{ loop.index0 }}" class="form-label">Ответ на нажатие</label>
+                                <textarea class="form-control" id="response_{{ loop.index0 }}" name="response" required>{{ button.response }}</textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="position_{{ loop.index0 }}" class="form-label">Позиция</label>
-                                <input type="number" class="form-control" id="position_{{ loop.index0 }}" name="position" value="{{ btn.position }}" required>
+                                <input type="number" class="form-control" id="position_{{ loop.index0 }}" name="position" value="{{ button.position }}" min="0" required>
                             </div>
                             <button type="submit" class="btn btn-primary">Сохранить</button>
                         </form>

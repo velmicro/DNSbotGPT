@@ -1,14 +1,159 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Команды</h2>
+<h2>Управление командами</h2>
+
+<!-- Добавление новой команды -->
+<h3>Добавить команду</h3>
 <form method="POST">
-    {% for command in commands %}
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" name="commands" value="{{ command }}"
-               {% if command in active_commands %}checked{% endif %}>
-        <label class="form-check-label">{{ command }}</label>
+    <input type="hidden" name="action" value="add_command">
+    <div class="mb-3">
+        <label for="name" class="form-label">Название команды (например, /start)</label>
+        <input type="text" class="form-control" id="name" name="name" required>
     </div>
-    {% endfor %}
-    <button type="submit" class="btn btn-primary">Сохранить</button>
+    <div class="mb-3">
+        <label for="type" class="form-label">Тип команды</label>
+        <select class="form-control" id="type" name="type" onchange="toggleInlineButtons(this)">
+            <option value="text">Текстовая</option>
+            <option value="inline_buttons">С inline-кнопками</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="response" class="form-label">Ответ команды</label>
+        <textarea class="form-control" id="response" name="response" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="access" class="form-label">Доступ</label>
+        <select class="form-control" id="access" name="access">
+            <option value="public">Публичный</option>
+            <option value="admin">Только для админов</option>
+        </select>
+    </div>
+    <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="show_keyboard" name="show_keyboard">
+        <label class="form-check-label" for="show_keyboard">Показывать клавиатуру с кнопками</label>
+    </div>
+    <div id="inline_buttons_section" class="d-none">
+        <h4>Inline-кнопки (до 5)</h4>
+        {% for i in range(5) %}
+        <div class="mb-3">
+            <label class="form-label">Кнопка {{ i + 1 }}</label>
+            <input type="text" class="form-control" name="btn_text_{{ i }}" placeholder="Текст кнопки">
+            <input type="text" class="form-control mt-2" name="btn_url_{{ i }}" placeholder="URL кнопки">
+        </div>
+        {% endfor %}
+    </div>
+    <button type="submit" class="btn btn-primary">Добавить команду</button>
 </form>
+
+<!-- Список существующих команд -->
+<h3 class="mt-5">Существующие команды</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Название</th>
+            <th>Тип</th>
+            <th>Ответ</th>
+            <th>Доступ</th>
+            <th>Показывать клавиатуру</th>
+            <th>Кнопки</th>
+            <th>Действия</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for command in commands %}
+        <tr>
+            <td>{{ command.name }}</td>
+            <td>{{ command.type }}</td>
+            <td>{{ command.response }}</td>
+            <td>{{ command.access }}</td>
+            <td>{{ 'Да' if command.show_keyboard else 'Нет' }}</td>
+            <td>
+                {% if command.inline_buttons %}
+                <ul>
+                    {% for button in command.inline_buttons %}
+                    <li>{{ button.text }} ({{ button.url }})</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                Нет
+                {% endif %}
+            </td>
+            <td>
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editCommandModal{{ loop.index0 }}">Редактировать</button>
+                <form action="{{ url_for('commands') }}" method="POST" class="d-inline">
+                    <input type="hidden" name="action" value="delete_command">
+                    <input type="hidden" name="index" value="{{ loop.index0 }}">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        <div class="modal fade" id="editCommandModal{{ loop.index0 }}" tabindex="-1" aria-labelledby="editCommandModalLabel{{ loop.index0 }}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editCommandModalLabel{{ loop.index0 }}">Редактировать команду</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            <input type="hidden" name="action" value="edit_command">
+                            <input type="hidden" name="index" value="{{ loop.index0 }}">
+                            <div class="mb-3">
+                                <label for="name_{{ loop.index0 }}" class="form-label">Название команды</label>
+                                <input type="text" class="form-control" id="name_{{ loop.index0 }}" name="name" value="{{ command.name }}" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="type_{{ loop.index0 }}" class="form-label">Тип команды</label>
+                                <select class="form-control" id="type_{{ loop.index0 }}" name="type" onchange="toggleInlineButtons(this)">
+                                    <option value="text" {% if command.type == "text" %}selected{% endif %}>Текстовая</option>
+                                    <option value="inline_buttons" {% if command.type == "inline_buttons" %}selected{% endif %}>С inline-кнопками</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="response_{{ loop.index0 }}" class="form-label">Ответ команды</label>
+                                <textarea class="form-control" id="response_{{ loop.index0 }}" name="response" required>{{ command.response }}</textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="access_{{ loop.index0 }}" class="form-label">Доступ</label>
+                                <select class="form-control" id="access_{{ loop.index0 }}" name="access">
+                                    <option value="public" {% if command.access == "public" %}selected{% endif %}>Публичный</option>
+                                    <option value="admin" {% if command.access == "admin" %}selected{% endif %}>Только для админов</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="show_keyboard_{{ loop.index0 }}" name="show_keyboard" {% if command.show_keyboard %}checked{% endif %}>
+                                <label class="form-check-label" for="show_keyboard_{{ loop.index0 }}">Показывать клавиатуру с кнопками</label>
+                            </div>
+                            <div id="inline_buttons_section_{{ loop.index0 }}" class="{% if command.type == 'inline_buttons' %}inline-buttons-visible{% else %}inline-buttons-hidden{% endif %}">
+                                <h4>Inline-кнопки (до 5)</h4>
+                                {% for i in range(5) %}
+                                <div class="mb-3">
+                                    <label class="form-label">Кнопка {{ i + 1 }}</label>
+                                    <input type="text" class="form-control" name="btn_text_{{ i }}" placeholder="Текст кнопки" value="{% if command.inline_buttons and i < command.inline_buttons|length %}{{ command.inline_buttons[i].text }}{% endif %}">
+                                    <input type="text" class="form-control mt-2" name="btn_url_{{ i }}" placeholder="URL кнопки" value="{% if command.inline_buttons and i < command.inline_buttons|length %}{{ command.inline_buttons[i].url }}{% endif %}">
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Сохранить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+function toggleInlineButtons(selectElement) {
+    const inlineButtonsSection = selectElement.closest('form').querySelector('[id^="inline_buttons_section"]');
+    if (selectElement.value === "inline_buttons") {
+        inlineButtonsSection.classList.remove('inline-buttons-hidden');
+        inlineButtonsSection.classList.add('inline-buttons-visible');
+    } else {
+        inlineButtonsSection.classList.remove('inline-buttons-visible');
+        inlineButtonsSection.classList.add('inline-buttons-hidden');
+    }
+}
+</script>
 {% endblock %}
